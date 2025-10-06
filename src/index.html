@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Petite-Vue CRUD Example</title>
+    <link rel="icon" href="favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .font-cinzel {
+        font-family: 'Cinzel', serif;
+      }
+
+      .font-cormorant {
+        font-family: 'Cormorant Garamond', serif;
+      }
+    </style>
+  </head>
+
+  <body :class="{ 'overflow-hidden': activeMap }" @vue:mounted="onMounted()">
+    <div
+      class="min-h-screen flex gap-6 size-full bg-stone-400 p-4"
+      :class="autenticTheme ? 'font-cormorant !text-blue-100 !bg-radial from-sky-950 to-indigo-950' : ''"
+    >
+      <aside class="card w-2xs card glass flex-shrink-0">
+        <form class="flex flex-col gap-4 card-body p-4">
+          <fieldset class="fieldset">
+            <label class="font-semibold text-sm">Select the Nightlord:</label>
+            <select
+              v-model="selectedBoss"
+              class="select bg-stone-200 cursor-pointer"
+              :class="{'!bg-slate-800': autenticTheme}"
+              @change="filterMaps"
+            >
+              <option class="hidden"></option>
+              <option v-for="boss in bosses" :key="boss.name" :value="boss">
+                {{ boss.name }}, {{ boss.title }} {{boss.alias ? `(${boss.alias})` : ''}}
+              </option>
+            </select>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <label class="font-semibold text-sm">Select the Earth Shift:</label>
+            <select
+              v-model="selectedEarthShift"
+              class="select bg-stone-200 cursor-pointer"
+              :class="{'!bg-slate-800': autenticTheme}"
+              @change="filterMaps"
+            >
+              <option class="hidden"></option>
+              <option v-for="esh in earthShifts" :key="esh.key" :value="esh">
+                {{ esh.label }}
+              </option>
+            </select>
+          </fieldset>
+
+          <fieldset v-if="mapLocations.length" class="fieldset">
+            <label class="font-semibold text-sm">Location you see in Top Right corner:</label>
+            <div class="flex gap-2 flex-wrap justify-start">
+              <button
+                type="button"
+                class="rounded p-px cursor-pointer size-20 glass hover:inset-ring inset-ring-stone-100 hover:ring ring-stone-100"
+                v-for="location in mapLocations"
+                :key="location.id"
+                :value="location"
+                @click="setResultMaps(location)"
+              >
+                <div
+                  v-if="location.type"
+                  class="size-full bg-contain bg-center bg-no-repeat relative"
+                  :style="{'background-image': `url(./assets/locations/${location.type}.png)`}"
+                >
+                  <img
+                    v-if="location.effect"
+                    :src="`./assets/effects/${location.effectIcon}`"
+                    :alt="location.effect"
+                    class="size-5 absolute bottom-3 right-2 brightness-130"
+                  />
+                </div>
+                <div v-else class="size-full flex items-center justify-center">
+                  <span class="text-xs text-center px-1">No Location</span>
+                </div>
+                <!-- {{ location.label }} -->
+              </button>
+            </div>
+          </fieldset>
+
+          <div class="mt-auto">
+            <fieldset class="fieldset flex items-center gap-2">
+              <input
+                type="checkbox"
+                v-model="autenticTheme"
+                @click="toggleTheme()"
+                class="toggle theme-controller cursor-pointer !bg-transparent"
+                :style="{'--input-color': autenticTheme ? 'var(--color-blue-100)' : 'var(--color-base-content)'}"
+              />
+              <label class="font-semibold text-sm">Use autentic theme</label>
+            </fieldset>
+          </div>
+        </form>
+      </aside>
+
+      <section class="w-full">
+        <div v-if="resultMaps.length">
+          <h1 class="font-cinzel text-xl text-center mb-4 glass rounded-xl p-2">
+            Choose from maps below based on your <b>Spawn point</b> (marked with blue arrows)
+          </h1>
+          <div class="grid grid-cols-2 gap-4 w-full">
+            <!-- <div class="skeleton h-32 w-32"></div> -->
+            <div
+              v-for="map in resultMaps"
+              :key="map.id"
+              class="rounded-xl shadow overflow-hidden w-full aspect-square cursor-pointer"
+              @click="activeMap = map"
+            >
+              <img
+                :src="`./assets/pattern/${map.id}.jpg`"
+                alt=""
+                class="w-full h-full object-cover scale-140"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-if="activeMap"
+          class="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+          @click="activeMap = null"
+        >
+          <img
+            :src="`./assets/pattern/${activeMap.id}.jpg`"
+            class="max-w-full max-h-full shadow-lg scale-120"
+            @click.stop
+          />
+        </div>
+      </section>
+    </div>
+
+    <script src="https://unpkg.com/petite-vue"></script>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

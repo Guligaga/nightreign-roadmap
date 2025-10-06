@@ -1,0 +1,18 @@
+{
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "prettier.printWidth": 100,
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.bracketSameLine": false,
+  "proseWrap": "preserve",
+  "prettier.singleQuote": true
+}
