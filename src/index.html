@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Petite-Vue CRUD Example</title>
+    <title>Nightreign Roadmap</title>
     <link rel="icon" href="favicon.ico" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -13,23 +13,75 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <style>
-      .font-cinzel {
-        font-family: 'Cinzel', serif;
-      }
-
-      .font-cormorant {
-        font-family: 'Cormorant Garamond', serif;
-      }
-    </style>
   </head>
 
   <body :class="{ 'overflow-hidden': activeMap }" @vue:mounted="onMounted()">
     <div
-      class="min-h-screen flex gap-6 size-full bg-stone-400 p-4"
+      class="min-h-screen size-full bg-stone-400 pt-2"
       :class="autenticTheme ? 'font-cormorant !text-blue-100 !bg-radial from-sky-950 to-indigo-950' : ''"
     >
-      <aside class="card w-2xs card glass flex-shrink-0">
+      <header class="header p-4 ashadow-b ashadow-t bg-sky-900/20">
+        <div class="flex gap-4">
+          <fieldset class="fieldset w-60">
+            <label class="font-semibold text-sm">Select the Nightlord:</label>
+            <select
+              v-model="selectedBoss"
+              class="select bg-stone-200 cursor-pointer"
+              :class="{'!bg-slate-800': autenticTheme}"
+              @change="filterMaps"
+            >
+              <option class="hidden"></option>
+              <option v-for="boss in bosses" :key="boss.name" :value="boss">
+                {{ boss.name }}, {{ boss.title }} {{boss.alias ? `(${boss.alias})` : ''}}
+              </option>
+            </select>
+          </fieldset>
+
+          <fieldset class="fieldset w-60">
+            <label class="font-semibold text-sm">Select the Earth Shift:</label>
+            <select
+              v-model="selectedEarthShift"
+              class="select bg-stone-200 cursor-pointer"
+              :class="{'!bg-slate-800': autenticTheme}"
+              @change="filterMaps"
+            >
+              <option class="hidden"></option>
+              <option v-for="esh in earthShifts" :key="esh.key" :value="esh">
+                {{ esh.label }}
+              </option>
+            </select>
+          </fieldset>
+        </div>
+
+        <div class="flex gap-2 flex-wrap justify-start">
+          <button
+            type="button"
+            class="rounded p-px cursor-pointer size-20 glass hover:inset-ring inset-ring-stone-100 hover:ring ring-stone-100"
+            v-for="location in mapLocations"
+            :key="location.id"
+            :value="location"
+            @click="setResultMaps(location)"
+          >
+            <div
+              v-if="location.type"
+              class="size-full bg-contain bg-center bg-no-repeat relative"
+              :style="{'background-image': `url(./assets/locations/${location.type}.png)`}"
+            >
+              <img
+                v-if="location.effect"
+                :src="`./assets/effects/${location.effectIcon}`"
+                :alt="location.effect"
+                class="size-5 absolute bottom-3 right-2 brightness-130"
+              />
+            </div>
+            <div v-else class="size-full flex items-center justify-center">
+              <span class="text-xs text-center px-1">No Location</span>
+            </div>
+            <!-- {{ location.label }} -->
+          </button>
+        </div>
+      </header>
+      <aside class="card w-2xs card glass flex-shrink-0 hidden">
         <form class="flex flex-col gap-4 card-body p-4">
           <fieldset class="fieldset">
             <label class="font-semibold text-sm">Select the Nightlord:</label>
@@ -107,17 +159,17 @@
         </form>
       </aside>
 
-      <section class="w-full">
+      <section class="size-screen">
         <div v-if="resultMaps.length">
           <h1 class="font-cinzel text-xl text-center mb-4 glass rounded-xl p-2">
             Choose from maps below based on your <b>Spawn point</b> (marked with blue arrows)
           </h1>
-          <div class="grid grid-cols-2 gap-4 w-full">
+          <div class="flex gap-4 w-full flex-nowrap">
             <!-- <div class="skeleton h-32 w-32"></div> -->
             <div
               v-for="map in resultMaps"
               :key="map.id"
-              class="rounded-xl shadow overflow-hidden w-full aspect-square cursor-pointer"
+              class="rounded-xl shadow overflow-hidden aspect-square cursor-pointer"
               @click="activeMap = map"
             >
               <img

@@ -1,3 +1,11 @@
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
 select option:enabled:hover {
   background-color: color-mix(in lab, currentcolor 10%, transparent) !important;
 }
@@ -48,4 +56,17 @@ select option {
     oklch(0% 0 0 / 0) 20%
   );
   pointer-events: none;
+} */
+
+.ashadow-t.ashadow-b {
+  border-radius: 0;
+  position: relative;
+  box-shadow: inset 0px 20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8),
+    inset 0px -20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8);
+}
+
+/* .ashadow-b {
+  border-radius: 0;
+  position: relative;
+  box-shadow: inset 0px -20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8);
 } */
