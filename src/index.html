@@ -22,15 +22,15 @@
   >
     <div class="drawer lg:drawer-open h-dvh overflow-auto">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" v-model="drawerOpen" />
-      <div class="drawer-side lg:p-4 lg:pr-0">
-        <aside class="size-full lg:w-2xs p-4 lg:p-0 flex-shrink-0 backdrop-blur-md">
+      <div class="drawer-side lg:p-4 lg:pr-0 backdrop-blur-md bg-slate-950/10 flex">
+        <aside class="size-full lg:w-2xs p-4 lg:p-0 flex-shrink-0 max-w-md">
           <label
             class="absolute top-1/2 right-0 transform -translate-y-1/2 w-4 h-24 glass rounded-r-xl cursor-pointer flex items-center justify-center z-50 lg:hidden"
             @click="drawerOpen = false"
           >
             <i data-lucide="chevron-left" class="fill-transparent absolute w-6"></i>
           </label>
-          <div class="card glass size-full">
+          <div class="card glass size-full overflow-auto">
             <form class="flex flex-col gap-4 card-body p-4">
               <fieldset class="fieldset">
                 <label class="font-semibold text-sm">Select the Nightlord:</label>
@@ -107,6 +107,7 @@
             </form>
           </div>
         </aside>
+        <div class="size-full" @click="drawerOpen = false"></div>
       </div>
 
       <div class="drawer-content p-4">
