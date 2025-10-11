@@ -5,6 +5,14 @@ import { toUpperCaseFirst, uniqueByKeys, sortByKeys } from './util/index.js';
 
 console.log('effects:', effects);
 
+const BREAKPOINTS = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+};
+
 export const App = {
   maps,
   bosses,
@@ -23,10 +31,19 @@ export const App = {
   scale: 1,
 
   autenticTheme: false,
+  isDesktop: window.innerWidth >= BREAKPOINTS.lg,
+  drawerOpen: true,
 
   onMounted() {
     const savedTheme = localStorage.getItem('theme');
     this.autenticTheme = savedTheme === 'autentic';
+
+    window.addEventListener('resize', () => {
+      this.isDesktop = window.innerWidth >= BREAKPOINTS.lg;
+      if (this.isDesktop) {
+        this.drawerOpen = false;
+      }
+    });
   },
 
   filterMaps() {
@@ -62,13 +79,12 @@ export const App = {
   },
 
   setResultMaps(location) {
-    console.log('Location selected:', location);
     this.resultMaps = this.filteredMaps.filter(
       (map) =>
         map.nwLocation.type === (location.type || null) &&
         map.nwLocation.effect === (location.effect || null)
     );
-    console.log('Resulting Maps:', JSON.parse(JSON.stringify(this.resultMaps)));
+    this.drawerOpen = false;
   },
 
   toggleTheme() {
