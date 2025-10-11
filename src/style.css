@@ -70,3 +70,11 @@ select option {
   position: relative;
   box-shadow: inset 0px -20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8);
 } */
+
+.location-btn {
+  width: 100%;
+}
+
+.glass {
+  box-shadow: none;
+}
