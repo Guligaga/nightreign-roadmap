@@ -12,64 +12,8 @@ select option:enabled:hover {
 
 select option {
   padding-left: 0;
-}
-
-.autentic-bg {
-  border: 1px solid oklch(90.1% 0.058 230.902 / 0.5);
-  border-radius: 0%;
-  /* background-image: linear-gradient(
-      135deg,
-      oklch(100% 0 0 / var(--glass-opacity, 20%)) 0%,
-      oklch(0% 0 0 / 0) 100%
-    ),
-    linear-gradient(
-      var(--glass-reflect-degree, 100deg),
-      oklch(100% 0 0 / var(--glass-reflect-opacity, 5%)) 0%,
-      oklch(0% 0 0 / 0) 50%
-    ); */
-
-  box-shadow: inset 0 0 20px -5px oklch(90.1% 0.058 230.902 / 0.8);
-}
-
-.autentic-bg-sm {
-  border: 1px solid oklch(90.1% 0.058 230.902 / 0.5);
-  border-radius: 0%;
-  box-shadow: inset 0 0 10px -2px oklch(90.1% 0.058 230.902 / 0.8);
-}
-
-.shadow-autentic {
-  border-radius: 0;
-  position: relative;
-  box-shadow: inset 0px 0px 20px -5px oklch(90.1% 0.058 230.902 / 0.8);
-}
-
-/* .shadow-autentic::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-image: linear-gradient(
-    90deg,
-    oklch(90.1% 0.058 230.902 / 0.2) 0%,
-    oklch(0% 0 0 / 0) 20%
-  );
-  pointer-events: none;
-} */
-
-.ashadow-t.ashadow-b {
-  border-radius: 0;
-  position: relative;
-  box-shadow: inset 0px 20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8),
-    inset 0px -20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8);
 }
-
-/* .ashadow-b {
-  border-radius: 0;
-  position: relative;
-  box-shadow: inset 0px -20px 30px -30px oklch(90.1% 0.058 230.902 / 0.8);
-} */
 
 .location-btn {
   width: 100%;
@@ -77,4 +21,33 @@ select option {
 
 .glass {
   box-shadow: none;
+  backdrop-filter: blur(var(--glass-blur, 30px));
+  background-image: linear-gradient(
+    135deg,
+    oklch(100% 0 0 / var(--glass-opacity, 20%)) 0%,
+    oklch(0% 0 0 / 0) 100%
+  );
+  border: 1px solid oklch(90.1% 0.058 230.902 / 0.2);
 }
+
+.hover\:glass:hover {
+  backdrop-filter: blur(var(--glass-blur, 30px));
+  background-color: #0000;
+  background-image: linear-gradient(
+    135deg,
+    oklch(100% 0 0 / var(--glass-opacity, 20%)) 0%,
+    oklch(0% 0 0/0) 100%
+  );
+  box-shadow: none;
+  border: 1px solid oklch(90.1% 0.058 230.902 / 0.2) !important;
+  text-shadow: 0 1px oklch(0% 0 0 / var(--glass-text-shadow-opacity, 5%));
+  border: none;
+}
+
+/* select {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+} */

@@ -28,11 +28,11 @@
       ></div>
 
       <aside
-        class="size-full max-w-md lg:max-w-2xs p-4 lg:pr-0 flex-shrink-0 lg:!bg-transparent flex fixed lg:static z-50 transition-transform"
+        class="size-full max-w-md lg:max-w-2xs p-4 lg:pr-0 flex-shrink-0 flex fixed lg:static z-50 transition-transform"
         :class="{ 'translate-x-[calc(-100%+1rem)]': !drawerOpen && !isDesktop }"
       >
         <button
-          class="absolute top-1/2 right-0 transform -translate-y-1/2 w-4 h-24 glass rounded-r-xl cursor-pointer flex items-center justify-center z-50 lg:hidden z-50"
+          class="absolute top-1/2 right-px transform -translate-y-1/2 w-4 h-24 glass rounded-r-xl cursor-pointer flex items-center justify-center z-50 lg:hidden z-50"
           @click="drawerOpen = !drawerOpen"
         >
           <i
@@ -47,8 +47,7 @@
               <label class="font-semibold text-sm">Select the Nightlord:</label>
               <select
                 v-model="selectedBoss"
-                class="select bg-stone-200 cursor-pointer w-full"
-                :class="{'!bg-slate-800': autenticTheme}"
+                class="select bg-slate-800 cursor-pointer w-full"
                 @change="filterMaps"
               >
                 <option class="hidden"></option>
@@ -62,8 +61,7 @@
               <label class="font-semibold text-sm">Select the Earth Shift:</label>
               <select
                 v-model="selectedEarthShift"
-                class="select bg-stone-200 cursor-pointer w-full"
-                :class="{'!bg-slate-800': autenticTheme}"
+                class="select bg-slate-800 cursor-pointer w-full"
                 @change="filterMaps"
               >
                 <option class="hidden"></option>
@@ -75,10 +73,10 @@
 
             <fieldset v-if="mapLocations.length" class="fieldset">
               <label class="font-semibold text-sm">Location you see in Top Right corner:</label>
-              <div class="grid grid-cols-3 gap-2 justify-start">
+              <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 gap-2 justify-start">
                 <button
                   type="button"
-                  class="w-full aspect-square rounded p-px cursor-pointer glass hover:inset-ring inset-ring-stone-100 hover:ring ring-stone-100"
+                  class="w-full aspect-square rounded p-px cursor-pointer glass hover:!inset-ring inset-ring-stone-100 hover:!ring ring-stone-100 hover:!border-none"
                   v-for="location in mapLocations"
                   :key="location.id"
                   :value="location"
@@ -103,7 +101,7 @@
               </div>
             </fieldset>
 
-            <div class="mt-auto hidden lg:block">
+            <div class="mt-auto hidden">
               <fieldset class="fieldset flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -135,7 +133,7 @@
               <img
                 :src="`https://thefifthmatt.github.io/nightreign/thumbnail/${map.id}.jpg`"
                 alt=""
-                class="w-full h-full object-cover scale-100"
+                class="w-full h-full object-cover scale-100 user-select-none pointer-events-none"
               />
             </div>
           </div>
@@ -174,6 +172,13 @@
             class="max-w-full max-h-full shadow-lg scale-130"
             @click.stop
           />
+
+          <button
+            class="fixed z-50 top-4 right-4 btn btn-circle btn-sm btn-ghost size-10 p-1 hover:glass text-current"
+            @click="activeMap = null"
+          >
+            <i data-lucide="x" class="size-full"></i>
+          </button>
         </div>
       </section>
     </div>
