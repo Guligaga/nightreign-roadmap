@@ -33,6 +33,7 @@ export const App = {
   autenticTheme: false,
   isDesktop: window.innerWidth >= BREAKPOINTS.lg,
   drawerOpen: true,
+  startX: 0,
 
   onMounted() {
     const savedTheme = localStorage.getItem('theme');
@@ -99,5 +100,39 @@ export const App = {
         this.toggleTheme();
       }
     });
+  },
+
+  onPointerDown(e) {
+    this.startX = e.clientX;
+    console.log('Pointer down at', e);
+  },
+
+  onPointerUp(e) {
+    const deltaX = e.clientX - this.startX;
+    console.log('Pointer up at', e, 'deltaX:', deltaX);
+
+    if (deltaX > 80 && !this.drawerOpen) {
+      this.drawerOpen = true;
+    } else if (deltaX < -80 && this.drawerOpen) {
+      this.drawerOpen = false;
+    }
+  },
+
+  onTouchStart(e) {
+    console.log('Touch start at', e);
+    // return;
+    this.startX = e.touches[0].clientX;
+  },
+
+  onTouchEnd(e) {
+    console.log('Touch end at', e);
+    // return;
+    const deltaX = e.changedTouches[0].clientX - this.startX;
+
+    if (deltaX > 80 && !this.drawerOpen) {
+      this.drawerOpen = true; // swipe right → open
+    } else if (deltaX < -80 && this.drawerOpen) {
+      this.drawerOpen = false; // swipe left → close
+    }
   },
 };
