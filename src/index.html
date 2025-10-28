@@ -117,6 +117,43 @@
         </div>
       </aside>
 
+      <div id="appVoice" class="fixed bottom-2 left-2 z-50">
+        <div
+          class="tooltip after:bg-slate-500/80"
+          :class="{
+          'tooltip-open': displayingTranscript,
+          'tooltip-closed': !displayingTranscript,
+          'after:hidden': !displayingTranscript
+        }"
+        >
+          <div
+            v-if="displayingTranscript"
+            class="tooltip-content translate-x-2/5 text-lg bg-slate-500/80 max-w-[70dvw]"
+          >
+            {{ displayingTranscript }}
+          </div>
+
+          <button
+            @click="toggleListening"
+            @mousedown="vibrate()"
+            @mouseup="vibrate()"
+            class="relative flex justify-center items-center p-1 size-12 rounded-full bg-slate-700/80 glass cursor-pointer"
+          >
+            <span
+              class="absolute size-full animate-ping duration-4500 rounded-full bg-slate-200 opacity-75"
+              :class="{'hidden': !voiceListening}"
+            >
+            </span>
+            <div :class="{'!hidden': !voiceListening}">
+              <i data-lucide="mic" class="size-full text-white animate-heart"></i>
+            </div>
+            <div :class="{'!hidden': voiceListening}">
+              <i data-lucide="mic-off" class="size-full text-white"></i>
+            </div>
+          </button>
+        </div>
+      </div>
+
       <section class="size-full p-4 overflow-auto">
         <div v-if="resultMaps.length">
           <h1 class="font-cinzel text-sm lg:text-xl text-center mb-4 rounded-xl glass p-2">
@@ -164,7 +201,7 @@
         </div>
         <div
           v-if="activeMap"
-          class="fixed inset-0 bg-slate-950/70 flex items-center justify-center z-50"
+          class="fixed inset-0 bg-slate-950/70 flex items-center justify-center z-100"
           @click="activeMap = null"
         >
           <img
