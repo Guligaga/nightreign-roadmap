@@ -2,6 +2,10 @@
   font-family: 'Cinzel', serif;
 }
 
+:root {
+  /* --animate-ping: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; */
+}
+
 .font-cormorant {
   font-family: 'Cormorant Garamond', serif;
 }
@@ -51,3 +55,22 @@ select option {
   -webkit-appearance: none;
   appearance: none;
 } */
+
+.animate-heart {
+  animation: heart 1s cubic-bezier(1, 0, 0, 1) infinite;
+}
+@keyframes heart {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.tooltip.tooltip-closed > .tooltip-content,
+.tooltip.tooltip-closed[data-tip]:before,
+.tooltip.tooltip-closed:after {
+  opacity: 0 !important;
+}
