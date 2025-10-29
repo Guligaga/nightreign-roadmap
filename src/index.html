@@ -50,7 +50,6 @@
                 class="select bg-slate-800 cursor-pointer w-full"
                 @change="filterMaps"
               >
-                <option class="hidden"></option>
                 <option v-for="boss in bosses" :key="boss.name" :value="boss">
                   {{ boss.name }}, {{ boss.title }} {{boss.alias ? `(${boss.alias})` : ''}}
                 </option>
@@ -64,7 +63,6 @@
                 class="select bg-slate-800 cursor-pointer w-full"
                 @change="filterMaps"
               >
-                <option class="hidden"></option>
                 <option v-for="esh in earthShifts" :key="esh.key" :value="esh">
                   {{ esh.label }}
                 </option>
@@ -140,7 +138,7 @@
             class="relative flex justify-center items-center p-1 size-12 rounded-full bg-slate-700/80 glass cursor-pointer"
           >
             <span
-              class="absolute size-full animate-ping duration-4500 rounded-full bg-slate-200 opacity-75"
+              class="absolute size-full animate-ping duration-4500 rounded-full bg-red-400 opacity-75"
               :class="{'hidden': !voiceListening}"
             >
             </span>

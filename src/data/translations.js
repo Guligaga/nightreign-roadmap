@@ -111,7 +111,7 @@ const effects = [
   },
   {
     key: 'sleep',
-    translations: ['sleep', 'сон', 'сонный', 'сонний'],
+    translations: ['sleep', 'сон', 'сонный', 'сонний', 'спящий', 'сплячий', 'сном'],
   },
   {
     key: 'madness',
