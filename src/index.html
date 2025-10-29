@@ -115,41 +115,35 @@
         </div>
       </aside>
 
-      <div id="appVoice" class="fixed bottom-2 left-2 z-50">
+      <div id="appVoice" class="fixed bottom-2 left-2 size-12 z-50">
         <div
-          class="tooltip after:bg-red-500/80"
-          :class="{
-          'tooltip-open': displayingTranscript,
-          'tooltip-closed': !displayingTranscript,
-          'after:hidden': !displayingTranscript
-        }"
+          class="absolute bottom-15 -left-1 w-max max-w-xs min-w-14 min-h-10 bg-slate-500/80 text-sky-100 py-2 px-3 rounded-xl backdrop-blur-xs transition-opacity"
+          :class="{'opacity-0 pointer-events-none': !showTranscript}"
         >
+          {{ displayingTranscript }}
           <div
-            v-if="displayingTranscript"
-            class="tooltip-content translate-x-2/5 text-lg bg-green-500/80 max-w-[70dvw]"
-          >
-            {{ displayingTranscript }}
-          </div>
-
-          <button
-            @click="toggleListening"
-            @mousedown="vibrate()"
-            @mouseup="vibrate()"
-            class="relative flex justify-center items-center p-1 size-12 rounded-full bg-slate-700/80 glass cursor-pointer"
-          >
-            <span
-              class="absolute size-full animate-ping duration-4500 rounded-full bg-slate-200 opacity-75"
-              :class="{'hidden': !voiceListening}"
-            >
-            </span>
-            <div :class="{'!hidden': !voiceListening}">
-              <i data-lucide="mic" class="size-full text-white animate-heart"></i>
-            </div>
-            <div :class="{'!hidden': voiceListening}">
-              <i data-lucide="mic-off" class="size-full text-white"></i>
-            </div>
-          </button>
+            class="absolute left-5.5 -bottom-1.5 w-0 h-0 border-l-6 border-r-6 border-t-6 border-l-transparent border-r-transparent border-t-slate-500/80"
+          ></div>
         </div>
+
+        <button
+          @click="toggleListening"
+          @mousedown="vibrate()"
+          @mouseup="vibrate()"
+          class="relative flex justify-center items-center p-1 size-12 rounded-full bg-slate-700/80 glass cursor-pointer"
+        >
+          <span
+            class="absolute size-full animate-ping duration-4500 rounded-full bg-slate-200 opacity-75"
+            :class="{'hidden': !voiceListening}"
+          >
+          </span>
+          <div :class="{'!hidden': !voiceListening}">
+            <i data-lucide="mic" class="size-full text-sky-100 animate-heart"></i>
+          </div>
+          <div :class="{'!hidden': voiceListening}">
+            <i data-lucide="mic-off" class="size-full text-sky-100"></i>
+          </div>
+        </button>
       </div>
 
       <section class="size-full p-4 overflow-auto">

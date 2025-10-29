@@ -68,9 +68,3 @@ select option {
     transform: scale(1.1);
   }
 }
-
-.tooltip.tooltip-closed > .tooltip-content,
-.tooltip.tooltip-closed[data-tip]:before,
-.tooltip.tooltip-closed:after {
-  opacity: 0 !important;
-}
